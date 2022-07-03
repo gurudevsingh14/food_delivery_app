@@ -7,3 +7,10 @@ class FoodModel {
 
   FoodModel({this.image, this.price, this.title});
 }
+class FoodCategory{
+  final Icon? icon;
+  final String? name;
+
+  FoodCategory({this.icon,this.name});
+
+}

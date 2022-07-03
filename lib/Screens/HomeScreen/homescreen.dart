@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:food_delivery_app/Screens/HomeScreen/components/carousel.dart';
+import 'package:food_delivery_app/Screens/HomeScreen/components/customButton.dart';
+import 'package:food_delivery_app/Screens/HomeScreen/components/customTile.dart';
 import 'components/appBar.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -9,51 +12,56 @@ class HomeScreen extends StatelessWidget {
     return SafeArea(
       child: Scaffold(
         backgroundColor: Color(0xFFF1E6FF),
-       body: SingleChildScrollView(
-         child: Column(
-           children: [
-             CustomAppbar(),
-             Container(
-             decoration: const BoxDecoration(
-               color: Colors.white,
-               borderRadius: BorderRadius.only(
-                   bottomLeft: Radius.circular(25), bottomRight: Radius.circular(25)),
-             ),
-             padding: EdgeInsets.all(25),
+       body: Stack(
+         children:[ Container(
+           height: MediaQuery.of(context).size.height,
+           child: SingleChildScrollView(
              child: Column(
-                 children: [
-                   Row(
+               children: [
+                 Container(
+                   decoration: const BoxDecoration(
+                     color: Colors.white,
+                     borderRadius: BorderRadius.only(
+                         bottomLeft: Radius.circular(25), bottomRight: Radius.circular(25)),
+                   ),
+                   child: Column(
                      children: [
-                       Icon(Icons.repeat),
-                       SizedBox(width: 20,),
-                       Text('Repeat last order')
+                       CustomAppbar(),
+                       Container(
+                         decoration: const BoxDecoration(
+                           color: Colors.white,
+                           borderRadius: BorderRadius.only(
+                               bottomLeft: Radius.circular(25), bottomRight: Radius.circular(25)),
+                         ),
+                         padding: EdgeInsets.all(20),
+                         child: Column(
+                             children: [
+                               CustomTile(prefixIcon: Icon(Icons.repeat),text: 'Repeat last order'),
+                               Divider(thickness: 2,),
+                               CustomTile(prefixIcon: Icon(Icons.question_mark),text:'Help me choose'),
+                               Divider(thickness: 2,),
+                               CustomTile(prefixIcon: Icon(Icons.card_giftcard),text: 'Surprise me')
+                             ]
+                         ),
+                       )
                      ],
                    ),
-                   Divider(thickness: 2),
-                   Row(
-                     children: [
-                       Icon(Icons.question_mark),
-                       SizedBox(width: 20,),
-                       Text('Help me choose')
-                     ],
-                   ),
-                   Divider(thickness: 2),
-                   Row(
-                     children: [
-                       Icon(Icons.card_giftcard),
-                       SizedBox(width: 20,),
-                       Text('Surprise me')
-                     ],
-                   ),
-                 ]
+
+                 ),
+                 CustomCarousel(title: 'Top categories',itemCount: 5,option: 1),
+                 CustomCarousel(title: 'Recommended for you', itemCount: 5, option: 2)
+
+               ],
              ),
-             )
-
-
-             
-           ],
-
+           ),
          ),
+           Positioned(
+             bottom: 20,
+               child: Container(
+                 width: MediaQuery.of(context).size.width,
+                    alignment: Alignment.center,
+                   child: RoundButton(text: 'Chect out 2 products', textColor: Colors.white, buttonColor: Colors.black,press:(){})))
+    ]
        ),
       ),
     );
