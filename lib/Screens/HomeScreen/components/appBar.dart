@@ -5,14 +5,18 @@ class CustomAppbar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    Size size=MediaQuery.of(context).size;
     return Container(
       padding: const EdgeInsets.only(top: 20, right: 20, left: 20, bottom: 20),
+      width: size.width,
+      height: size.height*0.18,
       decoration: const BoxDecoration(
         color: Colors.black87,
         borderRadius: BorderRadius.only(
             bottomLeft: Radius.circular(25), bottomRight: Radius.circular(25)),
       ),
       child: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,

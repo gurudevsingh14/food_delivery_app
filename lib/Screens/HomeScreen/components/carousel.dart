@@ -13,10 +13,13 @@ class CustomCarousel extends StatelessWidget {
   }) : super(key: key);
   @override
   Widget build(BuildContext context) {
-    size=MediaQuery.of(context).size;
+    Size size=MediaQuery.of(context).size;
     return Container(
+      width: size.width,
       padding: EdgeInsets.symmetric(vertical: 10,horizontal: 20),
       child: Column(
+        mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
@@ -32,21 +35,26 @@ class CustomCarousel extends StatelessWidget {
         ),
         SizedBox(height: 15,),
         SizedBox(
-          height: option!=null?option==1?50:270:null,
-          child: ListView.builder(
-            scrollDirection: option!=null?option==1?Axis.horizontal:Axis.horizontal:Axis.vertical,
-            itemCount: itemCount,
-            itemBuilder: (BuildContext context,int index){
-              return option!=null?option==1?categoryButton(listOfCategory[index].icon!,listOfCategory[index].name!):
-              foodCard(listOfFood[index].image!,listOfFood[index].title!,listOfFood[index].price!):SizedBox();
-            },
-            ),
+          height: option!=null?option==1?50:null:null,
+          child: option!=null?option==1?ListView.builder(
+              scrollDirection: option!=null?option==1?Axis.horizontal:Axis.horizontal:Axis.vertical,
+              itemCount: itemCount,
+              itemBuilder: (BuildContext context,int index){
+                return categoryButton(listOfCategory[index].icon!,listOfCategory[index].name!);
+              },
+              ):
+              Wrap(
+                children: listOfFood.map((food){
+                  return foodCard(food.image!, food.title!, food.price!);
+                }).toList(),
+              ):null
         ),
         ],
       ),
     );
   }
 }
+
 
 Widget categoryButton(Icon icon,String text)
 {
@@ -74,9 +82,10 @@ Widget foodCard(Image image,String title,double price){
         SizedBox(height: 10,),
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
         SizedBox(
-          height: 70,
+          // height: ,
             width: 90,
             child: Text(title,style: TextStyle(fontWeight: FontWeight.bold,fontSize: 18),maxLines: 2,overflow: TextOverflow.ellipsis,)),
         Text("\$"+price.toString(),style: TextStyle(fontWeight: FontWeight.bold,fontSize: 16),)
